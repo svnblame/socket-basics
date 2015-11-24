@@ -2,6 +2,9 @@ var name = getQueryVariable('name') || 'Anonymous';
 var room = getQueryVariable('room') || 'Empty Room';
 var socket = io();
 
+// Update room title
+jQuery('#room-title').text('Room: ' + room);
+
 socket.on('connect', function() {
 	console.log(name + ' joined ' + room); 
 	socket.emit('joinRoom', {

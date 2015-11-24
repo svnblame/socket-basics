@@ -4,6 +4,8 @@ var socket = io();
 
 socket.on('connect', function() {
 	console.log(name + ' joined ' + room); 
+	$roomTitle = jQuery('#room-title');
+	$roomTitle.append('Joined ' + room + ' as ' + name);
 });
 
 socket.on('message', function(message) {

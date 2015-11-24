@@ -7,10 +7,22 @@ var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
 
+var clientInfo = {};
+
 io.on('connection', function(socket) {
 	var timestamp = moment().valueOf();
 	var momentTimestamp = moment.utc(timestamp).local().format('MMM Do YYYY, h:mm:ss a');
 	console.log(momentTimestamp + ': Client connected via socket.io');
+
+	socket.on('joinRoom', function(req) {
+		clientInfo[socket.id] = req;
+		socket.join(req.room);
+		socket.broadcast.to(req.room).emit('message', {
+			name: 'System',
+			text: req.name + ' has joined',
+			timestamp: moment().valueOf()
+		});
+	});
 
 	socket.on('message', function(message) {
 
@@ -21,7 +33,7 @@ io.on('connection', function(socket) {
 		console.log(momentTimestamp + ': ' + message.text);
 
 		// Send message to everyone connected except for sender
-		io.emit('message', message);
+		io.to(clientInfo[socket.id].room).emit('message', message);
 	});
 
 	socket.emit('message', {

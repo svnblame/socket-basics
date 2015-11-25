@@ -3,22 +3,42 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Socket.io Basics</title>
-		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<!-- Bootstrap 3.3.6 -->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles -->
+		<link href="./css/styles.css" rel="stylesheet">
 	</head>
 	<body>
-		<p>
-			<a href="/index.html">Change Settings</a>
-		</p>
+		<div class="vertical-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 well">
+						<p>
+							<a href="/index.html">Change Settings</a>
+						</p>
 
-		<h3 id="room-title"><!-- Room name displays here --></h3>
+						<h3 id="room-title"><!-- Room name displays here --></h3>
 
-		<div id="messageBox"><!-- Messages display here --></div>
+						<ul id="messageBox" class="list-group"><!-- Messages display here --></ul>
 
-		<form id="message-form">
-			<input type="text" name="message" />
-			<input type="submit" value="Send" />
-		</form>
+						<form id="message-form">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-comment"></i>
+									</span>
+									<input type="text" name="message" class="form-control" />
+								</div>
 
+								<div class="form-group">
+									<input type="submit" value="Send" class="btn btn-primary btn-block" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="/js/jquery-2.1.4.min.js"></script>
 		<script src="/js/socket.io-1.3.7.js"></script>
 		<script src="/js/moment-2.10.6.js"></script>

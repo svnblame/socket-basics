@@ -17,10 +17,15 @@ socket.on('message', function(message) {
 	var momentTimestamp = moment.utc(message.timestamp).local().format('MMM Do YYYY, h:mm:ss a');
 	console.log(momentTimestamp + ': ' + message.text);
 
-	$message = jQuery('#messageBox');
+	var $messages = jQuery('#messageBox');
+
+	var $message = jQuery('<li class="list-group-item"></li>');
+
 	$message.append('<p><strong>' + message.name + ' ' + momentTimestamp + '</strong></p>');
 	$message.append('<p>' + message.text + '</p>');
+	$messages.append($message);
 });
+
 
 // Handle submiting of new message
 var $form = jQuery('#message-form');

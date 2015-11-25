@@ -9,6 +9,30 @@ app.use(express.static(__dirname + '/public'));
 
 var clientInfo = {};
 
+// Send current users to provided socket
+function sendCurrentUsers(socket) {
+	var info = clientInfo[socket.id];
+	var users = [];
+
+	if(typeof info === 'undefined') {
+		return;
+	}
+
+	Object.keys(clientInfo).forEach(function(socketId) {
+		var userInfo = clientInfo[socketId];
+
+		if (info.room === userInfo.room) {
+			users.push(userInfo.name);
+		}
+	});
+
+	socket.emit('message', {
+		name: 'System',
+		text: 'Current users: ' + users.join(', '),
+		timestamp: moment().valueOf()
+	});
+}
+
 io.on('connection', function(socket) {
 	var timestamp = moment().valueOf();
 	var momentTimestamp = moment.utc(timestamp).local().format('MMM Do YYYY, h:mm:ss a');
@@ -38,15 +62,15 @@ io.on('connection', function(socket) {
 	});
 
 	socket.on('message', function(message) {
-
-		// Set timestamp property on message to JS timestamp (millisecond version of Unix timestamp)
-		message.timestamp = moment().valueOf();
-
-		var momentTimestamp = moment.utc(message.timestamp).local().format('MMM Do YYYY, h:mm:ss a');
-		console.log(momentTimestamp + ': ' + message.text);
-
-		// Send message to everyone connected except for sender
-		io.to(clientInfo[socket.id].room).emit('message', message);
+		if (message.text === '@currentUsers') {
+			sendCurrentUsers(socket);
+		} else {
+			// Set timestamp property on message to JS timestamp
+			// (millisecond version of Unix timestamp)
+			message.timestamp = moment().valueOf();
+			// Send message to everyone connected except for sender
+			io.to(clientInfo[socket.id].room).emit('message', message);
+		}
 	});
 
 	socket.emit('message', {

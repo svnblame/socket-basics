@@ -3,7 +3,7 @@ var room = getQueryVariable('room') || 'Empty Room';
 var socket = io();
 
 // Update room title
-jQuery('#room-title').text('Room: ' + room);
+jQuery('#room-title').text(room);
 
 socket.on('connect', function() {
 	console.log(name + ' joined ' + room); 

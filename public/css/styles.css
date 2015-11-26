@@ -12,3 +12,8 @@ h1 {
 .messages p {
 	margin: 6px 0;
 }
+
+.popover-content {
+	width: 800px;
+    height: 60px;
+}

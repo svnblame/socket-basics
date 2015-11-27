@@ -22,10 +22,9 @@ socket.on('message', function(message) {
 	var $message = jQuery('<li class="list-group-item"></li>');
 
 	$message.append('<p><strong>' + message.name + ' ' + momentTimestamp + '</strong></p>');
-	$message.append('<p>' + message.text + '</p>');
+	$message.append('<p>' + htmlEscape(message.text) + '</p>');
 	$messages.append($message);
 });
-
 
 // Handle submiting of new message
 var $form = jQuery('#message-form');

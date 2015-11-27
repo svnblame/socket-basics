@@ -19,9 +19,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 well">
-						<div id="options" class="options">
-							<a href="/index.html">Change Settings</a>
-							<a id="commandReference" class="btn" href="#" rel="popover" data-placement="right" data-original-title="Available Commands" data-trigger="click">Command Reference</a>
+						<div id="options" class="options text-center">
+							<a id="changeSettingsLink" tabindex="0" class="btn btn-sm btn-info" role="button" title="Change Settings" href="./index.html">Change Settings</a>
+							<a id="commandReference" tabindex="1" class="btn btn-sm btn-info" role="button" data-toggle="popover" data-trigger="focus" title="Command Reference" data-content="">Command Reference</a>
 						</div>
 
 						<h1 id="room-title" class="text-center"><!-- Room name displays here --></h1>
@@ -38,7 +38,7 @@
 								</div>
 
 								<div class="form-group">
-									<input type="submit" value="Send" class="btn btn-primary btn-block" />
+									<input type="submit" value="Send" class="btn btn-primary btn-block" tabindex="3" />
 								</div>
 							</div>
 						</form>
@@ -59,7 +59,7 @@
 			$(function () {
 				var commandList = '@currentUsers - List users in the room';
 			  $('#commandReference').popover({ 
-			  	trigger: "click", 
+			  	trigger: "focus", 
 			  	html: true,
 			  	content: commandList });
 			});

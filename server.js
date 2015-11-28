@@ -68,7 +68,7 @@ io.on('connection', function(socket) {
 			// Set timestamp property on message to JS timestamp
 			// (millisecond version of Unix timestamp)
 			message.timestamp = moment().valueOf();
-			// Send message to everyone connected except for sender
+			// Send message to everyone connected including the sender
 			io.to(clientInfo[socket.id].room).emit('message', message);
 		}
 	});
@@ -81,5 +81,5 @@ io.on('connection', function(socket) {
 });
 
 http.listen(PORT, function() {
-	console.log('Server started...');
+	console.log('ChatterApp server started and listening on port ' + PORT);
 });
